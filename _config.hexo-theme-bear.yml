@@ -1,7 +1,7 @@
 # Header
 menu:
-  归档: /archives
-rss: /atom.xml
+  归档: /blog/archives
+rss: /blog/atom.xml
 title: "Banana Y.X.的博客"
 
 author: "Banana Y.X."
