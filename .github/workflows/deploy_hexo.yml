@@ -45,11 +45,11 @@ jobs:
 
       - name: 4.2. Push到 GitHub Pages
         env:
-          GH_TOKEN: ${{ secrets.HEXO }}
+          GH_TOKEN: ${{ secrets.FOR_BLOG_DEPLOY }}
         run: |
           cd public/
           git init
           git add -A
           git commit -m "Hexo deploy"
-          git remote add origin https://${{ secrets.HEXO }}@github.com/Bananayx/blog.git
+          git remote add origin https://${{ secrets.FOR_BLOG_DEPLOY }}@github.com/Bananayx/blog.git
           git push origin HEAD:gh-pages -f
