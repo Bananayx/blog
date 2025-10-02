@@ -52,5 +52,5 @@ jobs:
           git init
           git add -A
           git commit -m "Hexo deploy"
-          git remote add origin https://x-access-token:${{ secrets.FOR_BLOG_DEPLOY }}@github.com/Bananayx/Bananayx.github.io.git
+          git remote add origin https://x-access-token:${{ secrets.FOR_BLOG_DEPLOY }}@github.com/Bananayx/blog.git
           git push origin HEAD:gh-pages -f
