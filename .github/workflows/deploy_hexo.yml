@@ -1,0 +1,56 @@
+name: 构建页面并部署
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 步骤 1：检出源码
+      - name: 1. 检出源码
+        uses: actions/checkout@v4
+        with:
+          submodules: true  # 重要！用于拉取主题子模块
+
+      # 步骤 2：安装 Node.js
+      - name: 2. 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+
+      # 步骤 2.1：安装 Hexo
+      - name: 2.1. 安装 Hexo
+        run: |
+          npm uninstall hexo-cli
+          npm uninstall hexo-deployer-git
+          npm uninstall hexo-render-pug
+          npm install
+          npm install hexo-deployer-git --save
+          npm install -g hexo-cli
+          npm install hexo-renderer-pug --save
+
+      # 步骤 3:生成静态文件
+      - name: 3. 生成静态文件
+        run: |
+          rm -rf node_modules && npm install --force
+          hexo clean
+          hexo generate
+
+      # 步骤 4：部署到 GitHub Pages
+      - name: 4.1. 配置 Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: 4.2. Push到 GitHub Pages
+        env:
+          GH_TOKEN: ${{ secrets.FOR_BLOG_DEPLOY }}
+        run: |
+          cd public/
+          git init
+          git add -A
+          git commit -m "Hexo deploy"
+          git remote add origin https://x-access-token:${{ secrets.FOR_BLOG_DEPLOY }}@github.com/Bananayx/Bananayx.github.io.git
+          git push origin HEAD:gh-pages -f
