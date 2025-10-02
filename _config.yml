@@ -3,18 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 'Banana Y.X.的博客'
-subtitle: '面朝大海，春暖花开'
-description: 'Banana Y.X.的博客'
-keywords: 'Banana Y.X.,blog,hexo,bananayx,博客,个人网站'
-author: 'Banana Y.X.'
-language: zh-CN
-timezone: 'Asia/Shanghai'
+title: Hexo
+subtitle: ''
+description: ''
+keywords:
+author: John Doe
+language: en
+timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://bananayx.github.io
-root: /blog/
+url: http://example.com
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -97,11 +96,9 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-bear
+theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-#deploy:
-#  type: git
-#  repo: https://github.com/Bananayx/Bananayx.github.io.git
-#  branch: gh-pages
+deploy:
+  type: ''
