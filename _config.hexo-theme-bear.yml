@@ -2,10 +2,10 @@
 menu:
   归档: /archives
 rss: /atom.xml
-title: GARY.SHEN
+title: 'Banana Y.X.的博客'
 
-author: GARY.SHEN
-aboutme: Halo~
+author: Banana Y.X.
+aboutme: '面朝大海，春暖花开。'
 
 # Content
 excerpt_link: 全文...
@@ -13,10 +13,10 @@ fancybox: true
 date_format: 'YYYY年MM月DD日'
 
 socials:
-  github: "https://github.com/gary-Shen"
+  github: "https://github.com/Bananayx"
   flickr: "https://www.flickr.com/photos/69944455@N05/"
-  email: "guanlinshen@126.com"
-  wechat: "Grinson"
+  email: "xiaoyi9289@outlook.com"
+  wechat: "weixinqq_3956094132"
 
 
 
@@ -35,7 +35,7 @@ index_widgets:
 # - archive
 
 #主题方案
-highlight_theme: atom light
+highlight_theme: atom dark
 
 # widget behavior
 archive_type: 'monthly'
@@ -46,8 +46,8 @@ disqus_shortname:
 # Miscellaneous
 google_analytics: 'UA-61220413-1'
 gauges_analytics:
-favicon: /images/avatar.png
-avatar: "/images/avatar.png"
+favicon: https://img.cdn1.vip/i/6891ccaa59734_1754385578.webp
+avatar: "https://img.cdn1.vip/i/6891ccaa59734_1754385578.webp"
 twitter:
 google_plus:
 fb_admins:
