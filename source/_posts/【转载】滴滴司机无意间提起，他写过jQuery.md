@@ -27,7 +27,7 @@ excerpt: '那是一个闷热的周五，因为一个线上bug我加班到十点�
 
 师傅笑了，方向盘一打拐进辅路：“那时候啊，前端开发跟西部荒野似的。IE6是人人痛恨的恶霸，每个浏览器都自成一方诸侯，写个JavaScript得备上五六套写法。”
 
-![IE6.0](https://bananayxfiles.pages.dev/img/ie6.webp)
+![IE6.0](https://bananayxfiles.pages.dev/img/ie6.png)
 
 他说话的样子让我想起老兵回忆战场。
 
