@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Shorty-PHP：一个极简的基于PHP的单文件短链接工具</title>
+    <link href="/2026/08/14/Shorty-PHP%EF%BC%9A%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%E5%9F%BA%E4%BA%8EPHP%E7%9A%84%E5%8D%95%E6%96%87%E4%BB%B6%E7%9F%AD%E9%93%BE%E6%8E%A5%E5%B7%A5%E5%85%B7/"/>
+    <url>/2026/08/14/Shorty-PHP%EF%BC%9A%E4%B8%80%E4%B8%AA%E6%9E%81%E7%AE%80%E7%9A%84%E5%9F%BA%E4%BA%8EPHP%E7%9A%84%E5%8D%95%E6%96%87%E4%BB%B6%E7%9F%AD%E9%93%BE%E6%8E%A5%E5%B7%A5%E5%85%B7/</url>
+    
+    <content type="html"><![CDATA[<h2 id="一切的开始"><a href="#一切的开始" class="headerlink" title="一切的开始"></a>一切的开始</h2><p>在给他人分享各种链接时，总会遇到一些包含某些符号的链接，例如“【”和“】”，而这些链接在微信、QQ等聊天软件中通常会被这些符号截断，因为聊天软件并不知道这个符号是链接的一部分还是我要发的信息。这个时候，<strong>短链接</strong>工具就派上了用场。</p><h2 id="工具的抉择"><a href="#工具的抉择" class="headerlink" title="工具的抉择"></a>工具的抉择</h2><p>在网络上随便一搜，就有大把的短链接工具。那么，我为什么不选择用现成的呢？</p><p>原因是出于<strong>稳定性</strong>与<strong>安全性</strong>的考量：</p><ul><li>网络上的短链接工具来源参差不齐，有的来自互联网大厂，有的来自一些小作坊。大厂的就不说了，都是来宰你钱的。而小作坊的则无法保证长期可用，即稳定性较差，我曾用过的一些短链接工具就有已经失效的。</li><li>另外是安全性的问题，小作坊的域名如果经过转让等方式落入了非法组织的手中，那你生成的短链接指不定会跳到什么▒▒▒▒网站去。到时候如果别人打开了你分享的短链接，那你大概会有理说不清了。</li></ul><p>所以，<strong>自托管</strong>是一个更好的选择。</p><p>在GitHub上搜索“short url”，有大量优秀的短链接工具，但点进每一个仓库，你会发现：有的项目仓库<strong>文件如山</strong>，目录嵌套能嵌一长串；有的项目写了<strong>长篇</strong>的文档教你如何部署；有的必须依赖<strong>复杂</strong>的数据库。还有一个可以将短链接服务部署在Cloudflare Pages上的项目，你说“这够简单了吧”，但用过Cloudflare的服务的都知道，Cloudflare在国内网络环境下的低速带来的弊端远大于其便捷性带来的益处，大部分人<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="指部分像我这样的个人、没钱的学生党。">[1]</span></a></sup>使用Cloudflare也都是因为其提供慷慨的免费服务。</p><p>另外，这些工具拥有大量高级功能，例如API接口、用户系统、后台管理。</p><p>但是，我并不需要API接口、用户系统、管理员后台。我需要的，<strong>仅仅只是一个能够生成短链接的工具</strong>。</p><h2 id="自己造！"><a href="#自己造！" class="headerlink" title="自己造！"></a>自己造！</h2><p>当已有的选择都不合适时，是时候<strong>自己造一个</strong>了。</p><p>我有一台虚拟主机<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="见[鸣谢](#鸣谢)">[2]</span></a></sup>，拥有PHP环境，所以我决定使用PHP编写这个工具，因为我可以很方便地部署它。</p><p><code>index.php</code>：为追求简洁性，我使用单文件实现所有功能（所有功能？不不不，仅仅只是短链接！）。</p><ul><li>短链接转换</li><li>JSON文件存储，零数据库依赖</li><li>301永久重定向</li><li>6位随机短码，自动去重</li><li>已存在链接自动复用短码</li><li>新拟态（Neumorphism）样式风格</li><li>可自定义页脚</li></ul><p><code>links.json</code>：由于厌倦数据库的繁冗，所以我使用一个JSON文件来记录生成的链接。</p><p>为了兼容一些老旧的平台，我还做了对PHP5.6的支持，这个工作由AI辅助完成<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="人话：AI做的">[3]</span></a></sup>。</p><p>我个人非常喜欢新拟物（Neumorphism）的设计风格，清新、灵动，所以整个界面样式由AI辅助完成<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="人话：AI做的">[3]</span></a></sup>了新拟物风格化。不必担心，这绝不会违背本项目极简的理念，界面仍然非常简洁(见<a href="#%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE">屏幕截图</a>，事实上，这也是我为何不使用我同样喜欢的顶级美观的液态玻璃设计的原因，复杂的光线计算将违背本项目极简的初心。</p><h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><p>将<code>index.php</code>甩给服务器，直接就能访问，什么配置都不需要<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="可选配置页脚，详情见[项目仓库](https://github.com/Bananayx/Shorty-PHP)">[4]</span></a></sup>。</p><p>打开网站（这里有个<a href="#Demo">Demo</a>），粘贴网址，点一下，短链接就出来了，一键复制<br>——简单到离谱<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="没那么离谱">[5]</span></a></sup>。</p><p>新拟物界面<br>——优雅。</p><p>没有访问统计、没有过期时间、没有后台管理<br>——纯粹。</p><p>当你把<code>https://ccoc.ccccocccc.cc/c/?xxxxxx</code>这样的网址分享给别人时，“你发的网址看起来都一样，怎么打开却是不同的网站？”<br>——<strong>嘉豪</strong><sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪">[6]</span></a></sup>。</p><p>最重要的：</p><p>工具跑在自己的服务器上<br>——踏实。</p><p>什么？你说你服务器可能会到期？数据全在<code>links.php</code>，随时可以保存、迁移。<br>——还是踏实</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这就是Shorty-PHP，一个以极简为理念的短链接工具。</p><p>如果你看腻了花里胡哨的短链接，或者对这个项目感兴趣，欢迎到访<a href="https://github.com/Bananayx/Shorty-PHP">项目仓库</a>，项目已以MIT协议开源，可以随意使用、修改。</p><p>（求一个免费的Star✨！）</p><h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p><a href="https://ccoc.ccccocccc.cc/c">短链接</a></p><h2 id="屏幕截图"><a href="#屏幕截图" class="headerlink" title="屏幕截图"></a>屏幕截图</h2><p><img src="https://img.byxpan.qzz.io/file/1786712608428_image.png" alt="屏幕截图"></p><h2 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h2><p>🙏感谢<a href="https://www.vmhost.cc/">VmHost</a>提供免费的虚拟主机服务。</p><hr><p>注释：</p><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>指部分像我这样的个人、没钱的学生党。<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>见<a href="#%E9%B8%A3%E8%B0%A2">鸣谢</a><a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>人话：AI做的<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>可选配置页脚，详情见<a href="https://github.com/Bananayx/Shorty-PHP">项目仓库</a><a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:5" class="footnote-text"><span>没那么离谱<a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:6" class="footnote-text"><span>嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪嘉豪<a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>GitHub</tag>
+      
+      <tag>PHP</tag>
+      
+      <tag>短链接</tag>
+      
+      <tag>工具</tag>
+      
+      <tag>新拟物</tag>
+      
+      <tag>Neumorphism</tag>
+      
+      <tag>极简</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>我早已麻痹 - 壹。</title>
+    <link href="/2026/07/22/%E6%88%91%E6%97%A9%E5%B7%B2%E9%BA%BB%E7%97%B9%20-%20%E5%A3%B9%E3%80%82/"/>
+    <url>/2026/07/22/%E6%88%91%E6%97%A9%E5%B7%B2%E9%BA%BB%E7%97%B9%20-%20%E5%A3%B9%E3%80%82/</url>
+    
+    <content type="html"><![CDATA[<p>大家好。我是 壹。</p><p>我有一个个人博客网站，在这：<a href="https://onli.us.ci/">https://onli.us.ci</a>。</p><p>但是呢，今天我遇到的事情不适合在我的博客上说，所以我借了我哥们儿 Banana Y.X. 的博客一用。</p><p>先看图：<br><img src="https://img.byxpan.qzz.io/file/1786712425549_public-utilUpload-w2feUCKSCq3kmS6sRyJ211.jpg"></p><p>1️⃣图中打码的三个字▒▒▒是我喜欢的人的名字；</p><p>我在坐公交车时偶然看到了这张座椅背后写的文字。</p><p>2️⃣这班公交车确实经过她的小学；</p><p>左上：陈子豪，右上：查丝。</p><p>各位，这“陈子豪”显而易见是一个人名，这“查丝”的<em><del>谐音</del></em>意义无需多言。（3️⃣这说明▒▒▒的确是一位女生。）</p><p>好的，那么写下这些字迹的同学，你好；陈子豪，你好。</p><p><img src="https://img.byxpan.qzz.io/file/1786712459858_ce6c2be6974b138fec3a9472ba7efc8e.png"><br><img src="https://img.byxpan.qzz.io/file/1786712459858_ce6c2be6974b138fec3a9472ba7efc8e.png"><br><img src="https://img.byxpan.qzz.io/file/1786712459858_ce6c2be6974b138fec3a9472ba7efc8e.png"><br><img src="https://img.byxpan.qzz.io/file/1786712459858_ce6c2be6974b138fec3a9472ba7efc8e.png"><br><img src="https://img.byxpan.qzz.io/file/1786712459858_ce6c2be6974b138fec3a9472ba7efc8e.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>壹。</tag>
+      
+      <tag>校园</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>fuck-school-computer正式立项！</title>
+    <link href="/2026/06/26/fuck-school-computer%E6%AD%A3%E5%BC%8F%E7%AB%8B%E9%A1%B9%EF%BC%81/"/>
+    <url>/2026/06/26/fuck-school-computer%E6%AD%A3%E5%BC%8F%E7%AB%8B%E9%A1%B9%EF%BC%81/</url>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>项目仓库</strong>：<a href="https://github.com/Bananayx/fuck-school-computer">https://github.com/Bananayx/fuck-school-computer</a></p><p><strong>功能</strong>：顾名思义，寄生在学校的电脑上，执行你给的任何指令（例如干掉学校的内网服务器）。</p><p><strong>大白话</strong>：唉懒得写</p><h2 id="何出此项目？"><a href="#何出此项目？" class="headerlink" title="何出此项目？"></a>何出此项目？</h2><p><strong>咸的梅柿干</strong>，我做了这个。</p><p>话说，这项目纯突发奇想，不知道哪天上课打瞌睡时，这个念头就冒出来了，然后就做了。</p><p>学校的电脑确实垃圾（<em>据我信息课的老师说，学校本打算采购一批新电脑把机房里的都换掉，不幸遇上内存涨价，黄了</em> : ( ），但都够教学用，关键在数量多，这要是利用起来……</p><p>其实早些时候我和我的一位编程搭档有过一个狂人的想法：把学校所有电脑都装上Raylink，我们就有无尽的计算机资源了。因为我们用的远程控制软件都是Raylink，有时需要在学校里用家里的电脑。</p><p>但是这显然没啥用，因为远程控制软件还是依赖于键鼠交互，无法批量调度为我们所用。</p><p>所以这个想法的产生原来还是有背景的……</p><h2 id="感兴趣？"><a href="#感兴趣？" class="headerlink" title="感兴趣？"></a>感兴趣？</h2><p>去<a href="https://github.com/Bananayx/fuck-school-computer">项目仓库</a>看看吧，那里有使用教程。</p><blockquote><p>由于目前项目刚立项，教程、傻瓜Releases、自动 部署脚本都还没有，但后续都会出的。: )</p></blockquote><p>目前基本功能已完善，我已经投入实际使用（死用），流程大概是：</p><ul><li><p>将源码打包成可执行文件，存在U盘里</p></li><li><p>U盘里写一个自动将可执行文件复制到U盘所在的电脑上，并设置隐藏开机自启的bat脚本</p></li><li><p>遇到一台新电脑，就把U盘插上一键部署</p></li><li><p>静享其乐</p></li></ul><h2 id="猛回头！"><a href="#猛回头！" class="headerlink" title="猛回头！"></a>猛回头！</h2><p>仅在获得合法授权的情况下本项目！</p><p>滥用本项目可能<strong>违反宪法确定的基本原则</strong>、<strong>危害国家安全</strong>、<strong>扰乱互联网秩序</strong>、<strong>侵犯他人权益</strong>。</p><h3 id="最后，欢迎留言！↓↓↓"><a href="#最后，欢迎留言！↓↓↓" class="headerlink" title="最后，欢迎留言！↓↓↓"></a>最后，欢迎留言！↓↓↓</h3>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>GitHub</tag>
+      
+      <tag>Python</tag>
+      
+      <tag>DDos</tag>
+      
+      <tag>攻击</tag>
+      
+      <tag>学校</tag>
+      
+      <tag>网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【转载】滴滴司机无意间提起，他写过jQuery</title>
+    <link href="/2025/09/07/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E6%BB%B4%E6%BB%B4%E5%8F%B8%E6%9C%BA%E6%97%A0%E6%84%8F%E9%97%B4%E6%8F%90%E8%B5%B7%EF%BC%8C%E4%BB%96%E5%86%99%E8%BF%87jQuery/"/>
+    <url>/2025/09/07/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E6%BB%B4%E6%BB%B4%E5%8F%B8%E6%9C%BA%E6%97%A0%E6%84%8F%E9%97%B4%E6%8F%90%E8%B5%B7%EF%BC%8C%E4%BB%96%E5%86%99%E8%BF%87jQuery/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>那是一个闷热的周五，因为一个线上bug我加班到十点半，正用公司办公App打车。五分钟后，我钻进一辆白色卡罗拉，司机师傅手指在方向盘上轻敲着某个旋律。空调嘶嘶地吐着冷气，车里正放着刀郎的《冲动的惩罚》。</p></blockquote><p>“这天儿真够热的，”师傅打破沉默，“您系好安全带啊。”</p><p>我敷衍地应了一声，手指在手机屏幕上滑动，心里盘算着周末去哪玩。车驶上北环大道，这么晚了竟然还堵得纹丝不动。师傅忽然叹了口气：</p><p>“这路况，让我想起以前写jQuery的日子，等待元素加载就像等这车队动弹，有时候等半天，它愣是不出来。”</p><p>我猛地抬起头：“您刚说写什么？”</p><p>“jQuery啊，”他透过后视镜对我笑了笑，眼神里藏着某种程序员特有的狡黠，“2007年那会儿，我给1.2.6版本贡献过代码，解决了两个bug。”</p><p>我顿时坐直了身子，仿佛车里坐着的是个刚刚承认自己曾是超级英雄的普通人。</p><p>“好家伙，大哥您可是前端活化石啊！”我脱口而出。</p><p>师傅笑了，方向盘一打拐进辅路：“那时候啊，前端开发跟西部荒野似的。IE6是人人痛恨的恶霸，每个浏览器都自成一方诸侯，写个JavaScript得备上五六套写法。”</p><p><img src="https://img.byxpan.qzz.io/file/1786712343810_ie6.webp" alt="IE6.0"></p><p>他说话的样子让我想起老兵回忆战场。</p><p>“记得那时候最头疼的是事件绑定，IE用attachEvent，其他浏览器用addEventListener。我们就像一群调解员，整天在浏览器大战中劝架。”师傅的手指在空中比划着，“直到jQuery横空出世，一句$(document).ready()解决了所有问题。”</p><p>车流开始移动，他的话语也流畅起来。</p><p>“jQuery最厉害的不是技术，是理念，”他说，“就像给DOM操作做了普通话推广。选择器用CSS那套，链式调用像串糖葫芦，动画效果简单到调个fadeIn()就行。以前要写20行代码的功能，现在一行搞定。</p><p>”我忍不住问：“那您怎么看现在jQuery不那么流行了？”</p><p>师傅轻笑一声，变道超了辆货车：“时代变了嘛。就像我以前开手动挡，现在开电动车。jQuery统一了浏览器操作，但现在浏览器自己就统一了。ES6出来了，Vue、React这些框架也更强大了。</p><p>”他顿了顿，等红灯时掏出手机给我看：“瞧，这是我去年帮邻居小孩改的网站，还用jQuery。小项目嘛，杀鸡何必用牛刀？”</p><p>“所以jQuery过时了？”我问。“过时？”他摇头，“高速公路修好了，不代表县级公路就没用了。全球还有近7000万个网站在用jQuery呢！就连Bootstrap 5都还得依赖它。jQuery就像编程界的麦克风——现在虽然有了各种高科技音响设备，但最基本的仍然能用且好用。”</p><p>目的地到了，我付款时忍不住又问：“您怎么开起滴滴了？”</p><p>师傅眨了眨眼：“前端技术发展太快，学不动了啊。只好把闲置的房子拿来出租，闲着没事出来开滴滴。写代码和开车差不多，都是把人和想法从一个地方送到另一个地方。只不过现在送的是真人，”他停顿了一下，笑容变得深邃，“而且不会遇到IE6那种怎么都解释不通的乘客。”</p><p>我下车后，他降下车窗补充道：“记住啊，技术会变，但解决问题的初心不变。jQuery教会我们的不是语法，而是怎么让复杂的世界变得更简单。”</p><p>白色卡罗拉汇入车流，我站在原地突然想起什么，朝远处喊道：“师傅您贵姓啊？”风中飘回三个字：“姓张…”</p><p>不知为何，我总觉得他差点要说自己姓“John”，也就是jQuery创始人John Resig的John。</p><p>不过没关系，在这座城市的某个角落，有一位滴滴司机曾经参与构建过互联网的一部分，而现在他正载着下一段历史，驶向未来。</p><p>也许下次打车，我会遇到一位说自己参与过Vue源码编写的司机师傅。毕竟，技术在变，但程序员们改变世界的心，永远飞驰在代码的海洋里。</p><blockquote><p>转载自微信公众号@前端之窗<a href="https://mp.weixin.qq.com/s/LUwfZNys7575piLUmzJ5RA">https://mp.weixin.q…</a>如有侵权请联系删除</p></blockquote>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>jQuery</tag>
+      
+      <tag>前端</tag>
+      
+      <tag>转载</tag>
+      
+      <tag>编程文化</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
